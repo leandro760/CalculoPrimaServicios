@@ -84,3 +84,40 @@ function consultarEmpleado(empleado) {
     console.log(`Ausencias injustificadas: ${empleado.ausencias}`);
     console.log(`Prima calculada: $${primaCalculada.toFixed(2)}`);
 }
+
+// Consulltar todos los empleados
+function consultarTodosLosEmpleados() {
+    empleados.forEach(consultarEmpleado);
+}
+
+// Ingreso de empleados
+let continuar = true;
+while (continuar) {
+    const empleado = ingresarEmpleado();
+    if (empleado) {
+        empleados.push(empleado);
+    }
+    continuar = confirm("¿Desea ingresar otro empleado?");
+}
+
+// Mostrar las opciones disponibles para el usuario
+let opcion;
+do {
+    opcion = mostrarOpciones();
+
+    if (opcion >= 1 && opcion <= empleados.length) {
+        const indiceSeleccionado = parseInt(opcion) - 1;
+        consultarEmpleado(empleados[indiceSeleccionado]);
+    } else if (opcion == empleados.length + 1) {
+        consultarTodosLosEmpleados();
+    } else if (opcion == empleados.length + 2) {
+        alert("Terminando la consulta.");
+    } else if (opcion !== null) {
+        alert("Opción inválida. Por favor, elige una opción de la lista.");
+    }
+
+} while (opcion != empleados.length + 2);
+
+// Mostrar todos los resultados guardados al final
+console.log("\nTodos los resultados guardados:");
+console.log(resultados);
